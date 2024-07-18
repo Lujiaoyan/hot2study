@@ -4,6 +4,7 @@ import streamlit as st
 st.write(':orange[:sunglasses: Python利奥老师班级的根据地 :sunglasses:]')
 
 st.image("logo.png")
+st.image("L5第一课.png")
 st.write('-----------------------------------------------')
 st.text(
 '''这里是Python利奥老师班级的根据地。由利奥老师老师和他的同学们一同创建。
