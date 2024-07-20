@@ -3,11 +3,11 @@ import streamlit as st
 from PIL import Image
 from random import *
 from collections import Counter
+from time import *
 
-page = st.sidebar.radio('我的首页',['我的兴趣推荐','我的图片处理工具','我的智慧词典','我的留言区','我的成分复杂的图鉴'])
-
+page = st.sidebar.radio(':orange[_我的首页:sunglasses:_]',['我的兴趣推荐','我的图片处理工具','我的智慧词典','我的留言区','我的成分复杂的图鉴','好用小工具'])
 def page_1():
-    st.write('这是我的兴趣推荐')
+    st.title('_这是我的兴趣推荐_')
     tab1,tab2,tab3 = st.tabs(['牢大','饮料涨价','老鼠会sing'])
     with tab1:
         with open('SeeYouAgain.mp3','rb') as f:
@@ -28,7 +28,7 @@ def page_1():
     st.write('—————————————————————————————————————————————————')
     
 def page_2():
-    st.write(":sunglasses:图片处理小程序:sunglasses:")
+    st.title(":sunglasses:图片处理小程序:sunglasses:")
     uploaded_file = st.file_uploader('图片上传:sunglasses:',type=['png','jpeg','jpg'])
     tab1,tab2,tab3,tab4 = st.tabs(['随机色调','反色调','像素化','战损'])
     with tab1:
@@ -60,7 +60,37 @@ def page_2():
             st.image(daxiao_img(img_4))
     
 def page_3():
-    st.write(':red[抱歉，你的内容丢失了]')
+    st.title('awa_智慧词典_awa')
+    with open('words_space.txt','r',encoding='utf-8') as f:
+        words_list = f.read().split('\n')
+    for i in range(len(words_list)):
+        words_list[i] = words_list[i].split('#')
+    words_dict = {}
+    for i in words_list:
+        words_dict[i[1]] = [int(i[0]),i[2]]
+
+    word = st.text_input('请输入要查询的单词：')
+    if word in words_dict:
+        st.write(words_dict[word])
+        if word == 'Man':
+            st.balloons()
+            with open('SeeYouAgain.mp3','rb') as f:
+                man_mp3 = f.read()
+            st.audio(man_mp3,format = 'audio/mp3',start_time = 0)
+        if word == 'python':
+            st.snow()
+            st.write(':red[_这是本网站的制作器_]')
+            st.code('''这是一行Python代码
+                    print('千万别输入Man')''')
+        if word == 'ikun':
+            st.balloons()
+            st.write(':red[_你是真爱粉吗？_]')
+            st.image('小坤佩奇.png')
+        if word == 'oubeibei':
+            st.write(':red[不是，你怎么知道的]')
+            st.image('新鲜哥猫.jpg')
+    else:
+        st.write('未找到该单词，请重新输入')
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 def page_4():
@@ -68,9 +98,10 @@ def page_4():
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 def page_5():
+    st.title(':purple[我是个《正经》的图鉴]')
     tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8 = st.tabs(['小坤佩奇','恶搞坤坤','冰红茶科比','劲凉冰红茶梅西','悲伤鼠鼠','新鲜哥猫','奸商','流浪栓绳'])
     st.write('———————————————————我是分界线———————————————————')
-    tab9,tab10 = st.tabs(['废石三兄弟','臭猫'])
+    tab9,tab10,tab11 = st.tabs(['废石三兄弟','臭猫','《虾》'])
     with tab1:
         st.write(':blue[小坤佩奇]')
         st.image('小坤佩奇.png')
@@ -112,9 +143,53 @@ def page_5():
         with open('臭猫bgm.mp3','rb') as f:
             cat_mp3 = f.read()
         st.audio(cat_mp3,format = 'audio/mp3',start_time = 0)
+    with tab11:
+        st.write('《虾》')
+        st.image('虾.jpg')
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 
+def page_6():
+    st.title('_用过的人都说好！_')
+    tab1,tab2,tab3 = st.tabs(['聪明的计算机','我会取名字！','不要点我！'])
+    with tab1:
+        nums = st.text_input('请输入算式：')
+        if nums:
+            nl = [1,2,3]
+            n = choice(nl)
+            if n == 1:
+                st.write(':red[我不会，长大后再来学吧]')
+            elif n==2:
+                st.write(':red[想偷懒？]')
+            else:
+                st.write(':red[（计算机跑路了）]')
+    with tab2:
+        father_name = None
+        if not father_name:
+            father_name = st.text_input('请输入父亲名字：')
+        mother_name = None
+        if not mother_name:
+            mother_name = st.text_input('请输入母亲名字：')
+        if father_name and mother_name:
+            st.write('你们孩子的名字是：')
+            st.subheader(father_name[0]+mother_name[0]+"!")
+    with tab3:
+        st.write('_加载ing_')
+        bar_num = 0
+        latest_iteration = st.empty()
+        bar= st.progress(0)
+        t = st.button('点我加载')
+        if t:
+            for i in range(99):
+                latest_iteration.text(f'{i+1}%')
+                bar.progress(i + 1)
+                sleep(0.1)
+            st.write(':red[_加载是个谎言！_]')
+    st.write(' ')
+    st.subheader(':blue[_评价一下！_]')
+    if st.button('好') or st.button('好用') or st.button('太好用了') or st.button('这是我见过最好用的'):
+        st.write(':blue[_谢谢评价，祝您生活愉快！_]')
+    
 def change_img(img,rc,rb,rg):
     width,height = img.size
     img_array = img.load()
@@ -180,3 +255,5 @@ elif page == '我的留言区':
     page_4()
 elif page == '我的成分复杂的图鉴':
     page_5()
+elif page == '好用小工具':
+    page_6()
