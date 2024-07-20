@@ -1,45 +1,74 @@
 '我的主页'
 import streamlit as st
+from PIL import Image
 st.header("欢迎来到我的主页！")
-tab1,tab2,tab3,tab4,tab5 = st.tabs(['时政新闻','今日天气','个人简介','照片墙','留言板'])
+page = st.sidebar.radio('我的主页',["兴趣推荐","图片处理工具","智慧词典","评论区"])
 
 #功能区
 def page_1():
-    answer = st.selectbox("请选择你想要浏览的文章",["1",'现场发生了什么？直击特朗普竞选集会现场枪击事件','3'])
-    if answer == "1":
-        st.write('1')
-    elif answer == "现场发生了什么？直击特朗普竞选集会现场枪击事件":
-        st.video("视频.mp4")
-        st.caption("据美国媒体13日报道，美国前总统特朗普当天在宾夕法尼亚州巴特勒市举行的竞选集会现场发生枪击事件，特朗普被特勤局人员护送离开。视频来源：新华社(00:23)")
-        st.write("当地时间13日下午，特朗普在美国宾夕法尼亚州举行竞选集会发表演讲时，现场响起枪声。他在特勤人员保护下立即撤离了演讲台。社交媒体上公布的视频显示，事发时特朗普被特勤局人员团团围住，他被紧急护送离开现场，特朗普右耳有血迹，并向人群挥舞拳头。随后，特朗普在发表声明中称，自己的“右耳上部被一颗子弹击穿”，“流了很多血”。")
-        st.image("trump.png")
-        st.caption("特朗普在特勤人员保护下撤离演讲台，并向人群挥舞拳头。")
-    else:
-        pass
+    st.subheader("个人书法作品展示")
+    st.image("书法作品1.jpg")
+    st.image("书法作品2.jpg")
+    st.image("书法作品3.jpg")
+    st.image("书法作品4.jpg")
 
 def page_2():
-    pass
+    st.write(":sunglasses:图片换色小程序:sunglasses:")
+    uploaded_file = st.file_uploader("上传图片",type=["png","jpeg","jpg"])
+    if uploaded_file:
+        img = Image.open(uploaded_file)
+        st.image(img)
+        tab1,tab2,tab3,tab4 = st.tabs(["原图","改色1","改色2","改色3"])
+        with tab1:
+            st.image(img_change(img,0,1,2))
+        with tab2:
+            st.image(img_change(img,0,2,1))
+        with tab3:
+            st.image(img_change(img,1,2,0))
+        with tab4:
+            st.image(img_change(img,1,0,2))
 
+
+def img_change(img,rc,gc,bc):
+    width,height = img.size
+    img_array = img.load()
+    for x in range(width):
+        for y in range(height):
+            r = img_array[x,y][rc]
+            g = img_array[x,y][gc]
+            b = img_array[x,y][bc]
+            img_array[x,y]= (r,g,b)
+    return img
 def page_3():
-    pass
-
+    st.write("智慧词典")
+    with open("words_space.txt",encoding = "utf-8")as f:
+        words_list = f.read().split('\n')
+    for i in range(len(words_list)):
+        words_list[i] = words_list[i].split("#")
+    words_dict = {}
+    for i in words_list:
+        words_dict[i[1]] = [int(i[0]),i[2]]
+    word = st.text_input("请输入要查询的单词")
+    if word in words_dict:
+        st.write(words_dict[word])
+        if word == "python":
+            st.code('''print('hello world')''')
+        
 def page_4():
     pass
 
-def page_5():
-    pass
+
 
 #运行区
-with tab1:
+if page =="兴趣推荐":
     page_1()
-with tab2:
+elif page == "图片处理工具":
     page_2()
-with tab3:
+elif page == "智慧词典":
     page_3()
-with tab4:
+elif page == "评论区":
     page_4()
-with tab5:
-    page_5()
+
     
 
     
