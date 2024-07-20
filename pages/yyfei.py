@@ -25,6 +25,9 @@ def page_1():
             mymp3_2 = f.read()
         st.audio(mymp3_2,format='audio/mp3',start_time = 0)
     with tab3:
+        st.image('壁纸5.jpg')
+        st.image('壁纸4.jpg')
+        st.image('壁纸6.jpg')
         st.image('壁纸0.jpg')
         st.image('壁纸1.jpg')
         st.image('壁纸2.jpg')
@@ -60,10 +63,46 @@ def page_2():
             st.image(img_change(img,1,0,2))
          
 def page_3():
-    pass
+    '''F的智慧词典'''
+    st.write('''智慧词典''')
+    #从本地文件中将词典信息读取出来，并存储在列表中
+    with open('words_space.txt','r',encoding = 'utf-8')as f:
+        words_list = f.read().split('\n')
+    #将列表中的每一项内容再进行分割，分为"编号，单词，解释"
+    for i in range(len(words_list )):
+        words_list[i]= words_list[i].split('#')
+    #将列表中的内容导入字典，方便查询格式为"单词:编号，解释"
+    words_dict= {}
+    for i in words_list:
+        words_dict[i[1]]= [int(i[0]),i[2]]
+    #创建输入框
+    word= st.text_input("请输入要查询的单词:")
+    #显示查询内容
+    if word in words_dict:
+        st.write(words_dict[word])
+        if word =='python':
+            st.code('''
+                    #恭喜你触发彩蛋，这是一串python代码
+                    print（hello world)''')
+        if word =='yanyifei':
+            st.code('''
+                    #哦，你居然输入了作者的名字''')
+            st.balloons()
+            st.image("开心.jpg")
+            st.image("爱心.jpg")
+            st.snow()
+        if word =='moxinke':
+            st.code('''
+                    #你竟然知道作者的最佳损友''')
+            st.snow()
+            st.image("M.jpg")
+            st.snow()
+        
+
     
 def page_4():
     pass
+
 
 def img_change(img,rc,gc,bc):
     '''图片处理'''
@@ -86,3 +125,6 @@ elif page =='F的智慧词典':
     page_3()
 elif page =='F的留言区':
     page_4()
+#video_file = open('MM.mp4', 'rb')
+#video_bytes = video_file.read()
+#st.video(video_bytes)
