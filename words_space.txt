@@ -1,4 +1,4 @@
-1#abandon#v.抛弃，放弃#
+﻿1#abandon#v.抛弃，放弃#
 2#abandonment#n.放弃#
 3#abbreviation#n.缩写#
 4#abeyance#n.缓办，中止#
@@ -7978,5 +7978,5 @@
 7985#zoo#n.动物园#
 7986#zoology#n.动物学#
 7987#python#恭喜你触发彩蛋#
-7988#xingsiyue#恭喜你输入了作者名#
-7989#ikun#哦？**你太美#
+7988#luoxingzu#恭喜你输入了作者名#
+7989#loveyou#广东人是不会说love的#
