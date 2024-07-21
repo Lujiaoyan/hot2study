@@ -7,7 +7,7 @@ from time import *
 
 page = st.sidebar.radio(':orange[_我的首页:sunglasses:_]',['我的兴趣推荐','我的图片处理工具','我的智慧词典','我的留言区','我的成分复杂的图鉴','好用小工具'])
 def page_1():
-    st.title('_这是我的兴趣推荐_')
+    st.title('_这是我的兴趣推荐👇_')
     tab1,tab2,tab3 = st.tabs(['牢大','饮料涨价','老鼠会sing'])
     with tab1:
         with open('SeeYouAgain.mp3','rb') as f:
@@ -60,7 +60,7 @@ def page_2():
             st.image(daxiao_img(img_4))
     
 def page_3():
-    st.title('awa_智慧词典_awa')
+    st.title('awa_智慧词典📖_awa')
     with open('words_space.txt','r',encoding='utf-8') as f:
         words_list = f.read().split('\n')
     for i in range(len(words_list)):
@@ -68,10 +68,29 @@ def page_3():
     words_dict = {}
     for i in words_list:
         words_dict[i[1]] = [int(i[0]),i[2]]
-
+    with open('check_out_times.txt','r',encoding='utf-8') as f:
+        times_list = f.read().split('\n')
+    for i in range(len(times_list)):
+        times_list[i] = times_list[i].split('#')
+    times_dict = {}
+    for i in times_list:
+        times_dict[int(i[0])] = int(i[1])
     word = st.text_input('请输入要查询的单词：')
     if word in words_dict:
         st.write(words_dict[word])
+        n = words_dict[word][0]
+        if n in times_dict:
+            times_dict[n] += 1
+        else:
+            times_dict[n] = 1
+        with open('check_out_times.txt','w',encoding='utf-8') as f:
+            message = ''
+            for k,v in times_dict.items():
+                message += str(k) + '#' + str(v) + '\n'
+            message = message[:-1]
+            f.write(message)
+        a = str(times_dict[n])
+        st.write(f':blue[_这个单词一共被查阅了{a}次_]')
         if word == 'Man':
             st.balloons()
             with open('SeeYouAgain.mp3','rb') as f:
@@ -89,19 +108,69 @@ def page_3():
         if word == 'oubeibei':
             st.write(':red[不是，你怎么知道的]')
             st.image('新鲜哥猫.jpg')
-    else:
-        st.write('未找到该单词，请重新输入')
+        if word == 'Kobe Bryant' or word == 'Kobe':
+            st.balloons()
+            st.image('冰红茶.jpg')
+            with open('SeeYouAgain.mp3','rb') as f:
+                man_mp3 = f.read()
+            st.audio(man_mp3,format = 'audio/mp3',start_time = 0)
+        if word == 'Technoblade':
+            st.write(':red[_Technoblade never dies!_]')
+        if word == 'dream':
+            st.image('dream.png')
+    elif word not in words_dict and word:
+        st.write(':blue[_未找到该单词，请重新输入_]')
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 def page_4():
-    st.write(':red[抱歉，你的内容丢失了]')
+    st.title('🪐我的留言区🪐')
+    st.write(':red[_注意：在留言完后将留言人更改即可查看自己的留言_]')
+    with open('leave_messages.txt','r',encoding='utf-8') as f:
+        messages_list = f.read().split('\n')
+    for i in range(len(messages_list)):
+        messages_list[i] = messages_list[i].split('#')
+    for i in messages_list:
+        if i[1] == '坤坤':
+            with st.chat_message('🐥'):
+                st.write(i[1],':',i[2])
+        elif i[1] == '老八':
+            with st.chat_message('💩'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == '科比':
+            with st.chat_message('🏀'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == '贝贝':
+            with st.chat_message('👌'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == '小黑子':
+            with st.chat_message('🐔'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == '小老鼠':
+            with st.chat_message('🐀'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == '普通人':
+            with st.chat_message('🙃'):
+                st.text(i[1]+':'+i[2])
+        elif i[1] == 'coke':
+            with st.chat_message('😺'):
+                st.text(i[1]+':'+i[2])
+    name = st.selectbox('我是……',['坤坤','老八','科比','贝贝','小黑子','小老鼠','普通人','coke'])
+    new_message = st.text_input('我想说的话……')
+    if st.button('🪑留言'):
+        messages_list.append([str(int(messages_list[-1][0])+1),name,new_message])
+    with open('leave_messages.txt','w',encoding='utf-8') as f:
+        message = ''
+        for i in messages_list:
+            message += i[0]+'#'+i[1]+'#'+i[2]+'\n'
+        message = message[:-1]
+        f.write(message)
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 def page_5():
-    st.title(':purple[我是个《正经》的图鉴]')
+    st.title(':purple[我是个《正经》的图鉴🤪]')
     tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8 = st.tabs(['小坤佩奇','恶搞坤坤','冰红茶科比','劲凉冰红茶梅西','悲伤鼠鼠','新鲜哥猫','奸商','流浪栓绳'])
     st.write('———————————————————我是分界线———————————————————')
-    tab9,tab10,tab11 = st.tabs(['废石三兄弟','臭猫','《虾》'])
+    tab9,tab10,tab11,tab12 = st.tabs(['废石三兄弟','臭猫','《虾》','白色巨型僵尸'])
     with tab1:
         st.write(':blue[小坤佩奇]')
         st.image('小坤佩奇.png')
@@ -146,12 +215,16 @@ def page_5():
     with tab11:
         st.write('《虾》')
         st.image('虾.jpg')
+    with tab12:
+        st.write(':blue[白色巨型僵尸]')
+        st.image('白色巨型僵尸.png')
+        st.write(':red[《村庄祸害者，他永远不会还手》]')
     st.write('————————————————————我也是有底线的————————————————————')
     st.write('—————————————————————————————————————————————————')
 
 def page_6():
-    st.title('_用过的人都说好！_')
-    tab1,tab2,tab3 = st.tabs(['聪明的计算机','我会取名字！','不要点我！'])
+    st.title('_👏用过的人都说好！_')
+    tab1,tab2,tab3,tab4 = st.tabs(['聪明的计算机','我会取名字！','不要点我！','猜身份'])
     with tab1:
         nums = st.text_input('请输入算式：')
         if nums:
@@ -186,9 +259,17 @@ def page_6():
                 sleep(0.1)
             st.write(':red[_加载是个谎言！_]')
     st.write(' ')
-    st.subheader(':blue[_评价一下！_]')
-    if st.button('好') or st.button('好用') or st.button('太好用了') or st.button('这是我见过最好用的'):
+    st.subheader(':blue[_👇评价一下！_]')
+    if st.button('👍') or st.button('好') or st.button('好用') or st.button('太好用了') or st.button('这是我见过最好用的'):
         st.write(':blue[_谢谢评价，祝您生活愉快！_]')
+    with tab4:
+        job = st.text_input('请输入1—3条线索（写完再回车）：')
+        if job:
+            st.write(':red[我猜你是…………]')
+            sleep(3)
+            st.write(':red[生物！]')
+            sleep(1)
+            st.write(':red[得意ing……]')
     
 def change_img(img,rc,rb,rg):
     width,height = img.size
