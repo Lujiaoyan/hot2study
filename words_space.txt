@@ -7978,5 +7978,4 @@
 7985#zoo#n.动物园#
 7986#zoology#n.动物学#
 7987#python#恭喜你触发彩蛋#
-7988#lujiaoyang#恭喜你输入了作者名#
-7989#yuexiahanshuang#恭喜你输入了我的网名#
+7988#sunjinghan#恭喜你输入了作者名#
